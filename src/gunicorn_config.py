@@ -6,8 +6,7 @@ pythonpath = '/app/src'
 bind = '127.0.0.1:8000'
 # workers = 2 * available cores + 1
 workers = 9
-# username
-user = 'entrant'
+
 limit_request_fields = 32000
 limit_request_field_size = 0
 # environment variables
