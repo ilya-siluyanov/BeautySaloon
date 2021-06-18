@@ -1,1 +1,1 @@
-web: sh start_gunicorn.sh
+web: python3 manage.py runserver 0.0.0.0:$PORT
