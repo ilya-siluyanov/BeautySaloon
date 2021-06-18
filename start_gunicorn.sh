@@ -3,4 +3,4 @@
 python3 manage.py makemigrations && python3 manage.py migrate
 
 #execute command launching gunicorn
-exec gunicorn "0.0.0.0:$PORT" src.wsgi
+exec web: gunicorn --bind 0.0.0.0:${PORT} src.wsgi
