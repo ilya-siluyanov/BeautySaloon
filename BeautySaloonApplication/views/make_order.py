@@ -3,10 +3,12 @@ from django.template.loader import render_to_string
 from rest_framework.decorators import api_view
 from BeautySaloonApplication import models, forms
 from BeautySaloonApplication.models import Order, Client, Service
+from django.contrib.auth.decorators import login_required
 
 
 @api_view(['get'])
 def send_order_form(request: HttpRequest, service_id: int):
+    session_user = request.user
     order_form = forms.OrderForm(initial={'service_id': service_id}, auto_id=False)
     page_html = render_to_string('make_order_form.html',
                                  context={'order_form': order_form},
@@ -15,6 +17,7 @@ def send_order_form(request: HttpRequest, service_id: int):
 
 
 @api_view(['post'])
+@login_required(redirect_field_name=None)
 def handle_order_form(request: HttpRequest):
     received_order_form = forms.OrderForm(request.POST)
     response = None  # type: HttpResponse

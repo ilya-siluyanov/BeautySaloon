@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Для продолжения работы необходимо авторизоваться или зарегистрироваться</h1>
+
+<form id="login_form" method="post" action="/authorize">
+    {% csrf_token %}
+    <input type="tel" minlength="12" maxlength="12" pattern="+7[0-9]{10}" name="phone_number"
+           placeholder="phone number"/>
+    <input type="password" name="password" placeholder="password">
+    <button type="submit">Войти</button>
+    <button type="submit" id="register_button">Зарегистрироваться</button>
+    <input type="hidden" name="is_registration" id="is_registration" value="0">
+    <script type="text/javascript">
+        button = document.getElementById('register_button')
+        button.onclick = () => {
+            document.getElementById('is_registration').setAttribute('value', '1')
+        }
+    </script>
+</form>
+
+
+</body>
+</html>
