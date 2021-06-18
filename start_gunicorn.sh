@@ -1,5 +1,6 @@
 #!/bin/bash
-#activate virtual environment
-source /app/venv/bin/activate
+
+python3 manage.py makemigrations && python3 manage.py migrate
+
 #execute command launching gunicorn
-exec gunicorn -c "/app/src/gunicorn_config.py" src.wsgi
+exec gunicorn 0.0.0.0:$(PORT) src.wsgi
