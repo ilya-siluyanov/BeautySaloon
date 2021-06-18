@@ -27,6 +27,11 @@ def authorizer(request: HttpRequest):
 
     if not is_registration and session_user:
         login(request, session_user)
+        if len(Client.objects.filter(phone_number=phone_number)) == 0:
+            client = Client(phone_number=phone_number,
+                            name='Name',
+                            surname='Surname')
+            client.save()
     else:
         # если есть номер телефона в базе данных пользователей
         if len(User.objects.filter(username=phone_number)) > 0:

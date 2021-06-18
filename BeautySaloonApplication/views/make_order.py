@@ -36,10 +36,13 @@ def handle_order_form(request: HttpRequest):
         client = Client.objects.get(phone_number=request.user.username)
         service = Service.objects.get(service_id=service_id)
         received_order = received_order_form.cleaned_data
+        received_order['date'] = eval(received_order['date'])
         new_order = Order.objects.create(client=client,
                                          service=service,
-                                         date=received_order[''])
-
+                                         date=received_order['date'][0],
+                                         time=received_order['date'][1])
+        new_order.save()
+        response = HttpResponseRedirect(redirect_to='/')
     else:
         context = {
             'order_form': received_order_form,
