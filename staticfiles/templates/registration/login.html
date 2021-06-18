@@ -6,12 +6,14 @@
 </head>
 <body>
 <h1>Для продолжения работы необходимо авторизоваться или зарегистрироваться</h1>
-
+{% if errors %}
+    <p style="color:red">{{ reason.description }}</p>
+{% endif %}
 <form id="login_form" method="post" action="/authorize">
     {% csrf_token %}
-    <input type="tel" minlength="12" maxlength="12" pattern="+7[0-9]{10}" name="phone_number"
+    <input type="tel" required minlength="12" maxlength="12" pattern="+7[0-9]{10}" name="phone_number"
            placeholder="phone number"/>
-    <input type="password" name="password" placeholder="password">
+    <input type="password" required name="password" placeholder="password">
     <button type="submit">Войти</button>
     <button type="submit" id="register_button">Зарегистрироваться</button>
     <input type="hidden" name="is_registration" id="is_registration" value="0">

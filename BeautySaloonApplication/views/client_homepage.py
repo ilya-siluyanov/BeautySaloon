@@ -6,8 +6,6 @@ from django.contrib.auth.decorators import login_required
 
 @login_required(redirect_field_name=None)
 def client_homepage(request: HttpRequest):
-    session_user = request.user
-
     context = {
         'available_services': Service.objects.all()
     }
