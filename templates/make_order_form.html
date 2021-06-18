@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Make order</title>
+</head>
+<body>
+{% if wrong_input %}
+    <p>Нормально введи данные че делаешь вообще</p>
+{% endif %}
+<form action="/send_order_form" method="post">
+    {% csrf_token %}
+    {{ order_form }}
+    <button type="Submit">Submit the order</button>
+</form>
+</body>
+</html>

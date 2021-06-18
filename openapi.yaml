@@ -1,0 +1,12 @@
+openapi: '3.0.0'
+info:
+  title: 'Beauty saloon service for administrators'
+  version: '1.0'
+
+paths:
+  /:
+    get:
+      description: 'Home page where an admin can see all requested by user services'
+      requestBody:
+        type: object
+        additionalProperties: true

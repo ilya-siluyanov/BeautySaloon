@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add a service</title>
+</head>
+<body>
+<form action="/admin/send_service_form" method="post">
+    {% csrf_token %}
+    {{ service_form }}
+
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to our beauty saloon</title>
+</head>
+<body>
+<h1>Welcome!</h1>
+<a href="/admin">
+    <button>Go to admin</button>
+</a>
+
+{% for service in available_services %}
+    <div class="service_container" style="border-style: solid;border-color: aqua;">
+        <div class="service_credentials" style="">
+            <h3>{{ service.name }}</h3>
+            <p>{{ service.price }}</p>
+        </div>
+        <div class="service_order_container">
+            <a href="make_order/{{ service.service_id }}">
+                <button>Записаться</button>
+            </a>
+        </div>
+    </div>
+{% endfor %}
+
+</body>
+</html>
