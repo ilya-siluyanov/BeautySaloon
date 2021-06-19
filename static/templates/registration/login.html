@@ -18,10 +18,10 @@
 <main class="form-signin">
     <h1 class="h3 mb-3 fw-normal">Для продолжения работы необходимо авторизоваться или зарегистрироваться</h1>
     {% if errors %}
-        <p style="color:red">{{ reason.description }}</p>
+        <p class="alert alert-danger">{{ reason.description }}</p>
     {% endif %}
 
-    <form id="login_form" method="post" action="/authorize">
+    <form id="login_form" method="post" action="authorize">
         {% csrf_token %}
         <div class="form-floating text-center">
             <input type="tel" class="form-control" required minlength="12" maxlength="12" pattern="\+7[0-9]{10}"
