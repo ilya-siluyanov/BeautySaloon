@@ -1,39 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Welcome to our beauty saloon</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/client_homepage.css' %}" rel="stylesheet">
 </head>
+
 <body>
-<h1>Welcome!</h1>
-<a href="/admin">
-    <button>Режим администратора</button> <!--FIXME-->
-</a>
+<header class="text-center w-100">
+    <nav class="navbar navbar-expand-md navbar-fixed-top navbar-dark bg-dark w-100">
+        <a class="navbar-brand" href="#">Салон красоты</a>
+        <ul class="navbar-nav mr-auto flex-fill">
+            <li class="nav-item">
+                <a class="nav-link active" href="/">Услуги</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/contacts">Контакты</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav">
+            <li class="nav-item float-right">
+                <a class="nav-link" href="/logout">Выйти</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="m-2">
 
-{% for service in available_services %}
-    <div class="service_container" style="border-style: solid;border-color: aqua;border-radius: 4px">
-        <div class="service_credentials" style="">
-            <h3>{{ service.service_instance.name }}</h3>
-            <p>{{ service.service_instance.price }}</p>
-        </div>
-        {% if not service.ordered %}
-            <div class="service_order_container">
-                <a href="make_order/{{ service.service_instance.service_id }}">
-                    <button>Записаться</button>
-                </a>
+    <div class="list-group">
+        {% for service in available_services %}
+            <div class="card text-center p-0.5 m-2">
+                <img class="card-img-top"  alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">{{ service.service_instance.name }}</h5>
+                    <p class="card-text">{{ service.service_instance.price }} рублей</p>
+                    {% if not service.ordered %}
+                        <a class="btn btn-primary" href="make_order/{{ service.service_instance.service_id }}">
+                            Записаться
+                        </a>
+                    {% else %}
+                        <p class="card-text">Вы записаны на {{ service.date }} {{ service.time }}</p>
+                        <a class="btn btn-danger" href="cancel_order/{{ service.service_instance.service_id }}">
+                            Отменить запись
+                        </a>
+                    {% endif %}
+                </div>
             </div>
-        {% else %}
-            <p>Вы записаны на {{ service.date }} {{ service.time }}</p>
-        {% endif %}
+        {% endfor %}
     </div>
-{% endfor %}
-
-<a href="/logout">
-    <button>Выйти из системы</button>
-</a>
+</main>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
         crossorigin="anonymous"></script>
