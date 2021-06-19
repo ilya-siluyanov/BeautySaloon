@@ -20,7 +20,7 @@ def send_order_form(request: HttpRequest, service_id: int):
     }
     order_form = forms.OrderForm(initial=form_initial_values,
                                  auto_id=False)
-    page_html = render_to_string('make_order_form.html',
+    page_html = render_to_string('creation/make_order_form.html',
                                  context={'order_form': order_form},
                                  request=request)
     return HttpResponse(page_html)
@@ -50,6 +50,6 @@ def handle_order_form(request: HttpRequest):
                 'description': 'Проверьте данные ввода'
             }
         }
-        html_text = render_to_string('make_order_form.html', context=context, request=request)
+        html_text = render_to_string('creation/make_order_form.html', context=context, request=request)
         response = HttpResponse(content=html_text, status=400)
     return response

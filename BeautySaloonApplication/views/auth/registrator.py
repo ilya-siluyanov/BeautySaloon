@@ -1,59 +1,10 @@
+from django.contrib.auth import login
+from django.contrib.auth.models import User
+from django.db import transaction
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.template.loader import render_to_string
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
+
 from BeautySaloonApplication.models import Client
-from django.db import transaction
-
-
-def logginer(request: HttpRequest):
-    if request.user.is_authenticated:
-        return HttpResponseRedirect(redirect_to='/')
-    else:
-        return HttpResponse(render_to_string('registration/login.html', request=request))
-
-
-def signuper(request: HttpRequest):
-    if request.user.is_authenticated:
-        return HttpResponseRedirect(redirect_to='/')
-    else:
-        return HttpResponse(render_to_string('registration/registration.html', request=request))
-
-
-@login_required(redirect_field_name=None)
-def loggouter(request: HttpRequest):
-    logout(request)
-    return HttpResponseRedirect(redirect_to='/')
-
-
-def authorizer(request: HttpRequest):
-    if request.user.is_authenticated:
-        return HttpResponseRedirect(redirect_to='/')
-
-    phone_number = request.POST['phone_number']
-    password = request.POST['password']
-    session_user = authenticate(username=phone_number, password=password)  # type: User
-    context = {
-        'errors': False,
-        'reason': {
-            'description': None
-        }
-    }
-    if session_user:
-        login(request, session_user)
-    else:
-        context['reason']['description'] = "Неправильный логин или пароль"
-
-    if context['reason']['description']:
-        context['errors'] = True
-    if context['errors']:
-        page_html = render_to_string('registration/login.html',
-                                     request=request,
-                                     context=context)
-        return HttpResponse(content=page_html, status=401)
-
-    return HttpResponseRedirect(redirect_to='/')
 
 
 def registrator(request: HttpRequest):

@@ -7,7 +7,6 @@
     <title>Welcome to our beauty saloon</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-
     <link href="{% static 'css/main.css' %}" rel="stylesheet">
 </head>
 
@@ -27,10 +26,15 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/contacts">Контакты</a>
                 </li>
+                {% if client.is_staff %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/services">Заказы</a>
+                    </li>
+                {% endif %}
             </ul>
             <ul class="navbar-nav ms-auto">
                 <li class="navbar-text me-auto">
-                    {{ client.name }} {% if client.is_staff %}(Администратор){% endif %}
+                    {{ request.user.first_name }} {% if request.user.is_staff %}(Администратор){% endif %}
                 </li>
                 <li class="nav-item me-auto">
                     <a class="nav-link" href="/logout">Выйти</a>
@@ -44,18 +48,26 @@
         {% for service in available_services %}
             <div class="list-group-item card text-center p-0.5 m-2">
                 <div class="card-body">
-                    <h5 class="card-title">{{ service.service_instance.name }}</h5>
-                    <p class="card-text">{{ service.service_instance.price }} рублей</p>
-                    {% if not service.ordered %}
-                        <a class="btn btn-primary" href="make_order/{{ service.service_instance.service_id }}">
-                            Записаться
-                        </a>
+                    <h5 class="card-title">{{ service.service.name }}</h5>
+                    <p class="card-text">{{ service.service.price }} рублей</p>
+                    {% if not request.user.is_staff %}
+                        {% if not service.ordered %}
+                            <a class="btn btn-primary" href="make_order/{{ service.service.service_id }}">
+                                Записаться
+                            </a>
+                        {% else %}
+                            <p class="card-text">Вы записаны
+                                                 на {{ service.service.date }} {{ service.service.time }}</p>
+                            <form action="/cancel_order/{{ service.service.service_id }}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">Отменить запись</button>
+                            </form>
+                        {% endif %}
                     {% else %}
-                        <p class="card-text">Вы записаны на {{ service.date }} {{ service.time }}</p>
-                        <form action="/cancel_order/{{ service.service_instance.service_id }}" method="post">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-danger">Отменить запись</button>
-                        </form>
+                        <a class="btn btn-danger" href="delete_service/{{ service.service.service_id }}">Удалить
+                                                                                                         сервис</a>
+                        <a class="btn btn-primary" href="show_orders/{{ service.service.service_id }}">Показать
+                                                                                                       заказы</a>
                     {% endif %}
                 </div>
             </div>
