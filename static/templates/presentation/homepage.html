@@ -57,7 +57,7 @@
                             </a>
                         {% else %}
                             <p class="card-text">Вы записаны
-                                                 на {{ service.service.date }} {{ service.service.time }}</p>
+                                                 на {{ service.date }} {{ service.time }}</p>
                             <form action="/cancel_order/{{ service.service.service_id }}" method="post">
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-danger">Отменить запись</button>
