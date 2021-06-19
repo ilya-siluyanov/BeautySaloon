@@ -20,7 +20,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto flex-fill">
+            <ul class="navbar-nav me-auto">
                 <li class="nav-item">
                     <a class="nav-link active" href="/">Услуги</a>
                 </li>
@@ -28,16 +28,11 @@
                     <a class="nav-link" href="/contacts">Контакты</a>
                 </li>
             </ul>
-            <ul class="navbar-nav">
-                <li class="navbar-text">
-                    <p>
-                        {{ client.name }}
-                        {% if client.is_staff %}
-                            (Администратор)
-                        {% endif %}
-                    </p>
+            <ul class="navbar-nav ms-auto">
+                <li class="navbar-text me-auto">
+                    {{ client.name }} {% if client.is_staff %}(Администратор){% endif %}
                 </li>
-                <li class="nav-item float-right">
+                <li class="nav-item me-auto">
                     <a class="nav-link" href="/logout">Выйти</a>
                 </li>
             </ul>
