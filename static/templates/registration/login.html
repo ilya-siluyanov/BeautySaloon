@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/signin.css' %}" rel="stylesheet">
+
+</head>
+<body class="text-center">
+
+
+<main class="form-signin">
+    <h1 class="h3 mb-3 fw-normal">Для продолжения работы необходимо авторизоваться или зарегистрироваться</h1>
+    {% if errors %}
+        <p style="color:red">{{ reason.description }}</p>
+    {% endif %}
+
+    <form id="login_form" method="post" action="/authorize">
+        {% csrf_token %}
+        <div class="form-floating text-center">
+            <input type="tel" class="form-control" required minlength="12" maxlength="12" pattern="\+7[0-9]{10}"
+                   name="phone_number" id="phone_number"
+                   placeholder="Phone number"/>
+            <label for="phone_number">Email address</label>
+
+        </div>
+        <div class="form-floating">
+            <input type="password" required class="form-control" name="password" id="password"
+                   placeholder="Пароль"/>
+            <label for="password">Password</label>
+
+            <button type="submit" class="w-100 btn btn-primary mb-1">Войти</button>
+            <button type="submit" class="w-100 btn btn-primary mb-1" id="register_button">Зарегистрироваться
+            </button>
+        </div>
+        <input type="hidden" name="is_registration" id="is_registration" value="0">
+        <script type="text/javascript">
+            button = document.getElementById('register_button')
+            button.onclick = () => {
+                document.getElementById('is_registration').setAttribute('value', '1')
+            }
+        </script>
+    </form>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+</body>
+</html>
