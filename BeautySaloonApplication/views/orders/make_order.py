@@ -18,8 +18,7 @@ def send_order_form(request: HttpRequest, service_id: int):
         'service_id': service_id,
         'phone_number': request.user.username
     }
-    order_form = forms.OrderForm(initial=form_initial_values,
-                                 auto_id=False)
+    order_form = forms.OrderForm(initial=form_initial_values)
     page_html = render_to_string('creation/make_order_form.html',
                                  context={'order_form': order_form},
                                  request=request)

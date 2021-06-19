@@ -51,12 +51,14 @@
     <form action="/send_order_form" method="post" class="text-center">
         {% csrf_token %}
         <div class="form-group">
+            <label for="id_date">Дата</label>
             {{ order_form.date }}
+            <label for="id_time">Время</label>
             {{ order_form.time }}
         </div>
         {{ order_form.service_id }}
         {{ order_form.phone_number }}
-        <button type="Submit" class="submit-row btn btn-primary">Submit the order</button>
+        <button type="Submit" class="submit-row btn btn-primary">Забронировать</button>
     </form>
 </main>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
