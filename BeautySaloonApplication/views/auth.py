@@ -23,6 +23,7 @@ def authorizer(request: HttpRequest):
     phone_number = request.POST['phone_number']
     password = request.POST['password']
     is_registration = True if request.POST['is_registration'] == '1' else False
+    is_staff = True if request.POST.get('is_admin_checkbox', None) == 'on' else False
     session_user = authenticate(username=phone_number, password=password)
     context = {
         'errors': False,
@@ -33,9 +34,12 @@ def authorizer(request: HttpRequest):
     if is_registration:
         if len(User.objects.filter(username=phone_number)) == 0:
             new_user = User.objects.create_user(username=phone_number, password=password)
-            Client.objects.create(phone_number=new_user.username,
-                                  name='Name',  # FIXME
-                                  surname='Surname')  # FIXME
+            new_user.is_staff = is_staff
+            new_user.save()
+            if not is_staff:
+                Client.objects.create(phone_number=new_user.username,
+                                      name='Name',  # FIXME
+                                      surname='Surname')  # FIXME
             login(user=new_user, request=request)
         else:
             context['reason']['description'] = "Номер телефона уже занят"
@@ -52,4 +56,8 @@ def authorizer(request: HttpRequest):
                                      request=request,
                                      context=context)
         return HttpResponse(content=page_html, status=401)
-    return HttpResponseRedirect(redirect_to='/')
+
+    if is_staff:
+        return HttpResponseRedirect(redirect_to='/admin')
+    else:
+        return HttpResponseRedirect(redirect_to='/')

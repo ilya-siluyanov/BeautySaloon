@@ -9,11 +9,11 @@
           integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
     <!-- Custom styles for this template -->
-    <link href="{% static 'css/client_homepage.css' %}" rel="stylesheet">
+    <link href="{% static 'css/homepage.css' %}" rel="stylesheet">
 </head>
 
 <body>
-<header class="text-center w-100">
+<header>
     <nav class="navbar navbar-expand-sm navbar-fixed-top navbar-dark bg-dark container-fluid">
         <a class="navbar-brand" href="/">Салон красоты</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -37,7 +37,7 @@
         </div>
     </nav>
 </header>
-<main class="m-2">
+<main>
 
     <div class="list-group">
         {% for service in available_services %}
