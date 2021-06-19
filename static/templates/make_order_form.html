@@ -6,20 +6,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Make order</title>
+    {% load static %}
+    <link href="{% static 'css/main.css' %}" rel="stylesheet">
+    <link href="{% static 'css/order_form.css' %}" rel="stylesheet">
 </head>
 <body>
-{% if errors %}
-    <p style="color:red">{{ reason.description }}</p>
-{% endif %}
-<form action="/send_order_form" method="post">
-    {% csrf_token %}
-    {{ order_form }}
-    <button type="Submit" class="submit-row">Submit the order</button>
-</form>
+<header>
+    <nav class="navbar navbar-expand-sm navbar-fixed-top navbar-dark bg-dark container-fluid">
+        <a class="navbar-brand" href="/">Салон красоты</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto flex-fill">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/">Услуги</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contacts">Контакты</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item float-right">
+                    <a class="nav-link" href="/logout">Выйти</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<main class="text-center">
+    {% if errors %}
+        <p class="alert alert-danger">{{ reason.description }}</p>
+    {% endif %}
 
-<a href="/logout">
-    <button class="btn">Выйти из системы</button>
-</a>
+    <form action="/send_order_form" method="post" class="text-center">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ order_form.date }}
+            {{ order_form.time }}
+        </div>
+        {{ order_form.service_id }}
+        {{ order_form.phone_number }}
+        <button type="Submit" class="submit-row btn btn-primary">Submit the order</button>
+    </form>
+</main>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
         crossorigin="anonymous"></script>

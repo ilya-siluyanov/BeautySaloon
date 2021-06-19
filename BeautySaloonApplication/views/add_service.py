@@ -17,5 +17,5 @@ def handle_service_form(request: HttpRequest):
     response = HttpResponse(content='хуйня твой инпут, заново делай', status=400)
     if service_form.is_valid():
         service_form.save()
-        response = HttpResponseRedirect(redirect_to='/')
+        response = HttpResponseRedirect(redirect_to='/admin')
     return response
