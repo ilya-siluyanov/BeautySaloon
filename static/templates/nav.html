@@ -14,6 +14,12 @@
             </li>
         </ul>
         <ul class="navbar-nav">
+            <li class="navbar-text">
+                <p class="text">{{ client.name }}</p>
+                {% if client.is_staff %}
+                    <p class="text">Администратор</p>
+                {% endif %}
+            </li>
             <li class="nav-item float-right">
                 <a class="nav-link" href="/logout">Выйти</a>
             </li>

@@ -53,10 +53,7 @@ def authorizer(request: HttpRequest):
                                      context=context)
         return HttpResponse(content=page_html, status=401)
 
-    if session_user.is_staff:
-        return HttpResponseRedirect(redirect_to='/admin')
-    else:
-        return HttpResponseRedirect(redirect_to='/')
+    return HttpResponseRedirect(redirect_to='/')
 
 
 def registrator(request: HttpRequest):
@@ -77,7 +74,7 @@ def registrator(request: HttpRequest):
             'description': None
         }
     }
-    for field in (phone_number, name, password, is_staff):
+    for field in (phone_number, name, password):
         if not field:
             context['reason']['description'] = "Ошибка регистрации. Проверьте данные и попробуйте ещё раз."
 
@@ -86,7 +83,7 @@ def registrator(request: HttpRequest):
     allowed_to_register = first_condition and second_condition
     if allowed_to_register:
         with transaction.atomic():
-            new_user = User.objects.create_user(username=phone_number, password=password)
+            new_user = User.objects.create_user(username=phone_number, password=password, first_name=name)
             if is_staff:
                 new_user.is_staff = is_staff
             new_user.save()

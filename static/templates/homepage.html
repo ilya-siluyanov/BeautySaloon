@@ -29,6 +29,14 @@
                 </li>
             </ul>
             <ul class="navbar-nav">
+                <li class="navbar-text">
+                    <p>
+                        {{ client.name }}
+                        {% if client.is_staff %}
+                            (Администратор)
+                        {% endif %}
+                    </p>
+                </li>
                 <li class="nav-item float-right">
                     <a class="nav-link" href="/logout">Выйти</a>
                 </li>

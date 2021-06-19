@@ -1,14 +1,18 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpRequest, HttpResponse
 from django.template.loader import render_to_string
+
 from BeautySaloonApplication.models import Service, Order
-from django.contrib.auth.decorators import login_required
 
 
 @login_required(redirect_field_name=None)
 def client_homepage(request: HttpRequest):
     context = {
-
-        'available_services': []
+        'available_services': [],
+        'client': {
+            'name': request.user.first_name,
+            'is_staff': request.user.is_staff
+        }
     }
 
     for service_instance in Service.objects.all():
