@@ -15,6 +15,6 @@ urlpatterns = [
     path('send_order_form', views.handle_order_form),
     path('add_service', views.add_service_form),
     path('delete_service/<int:service_id>', views.delete_service),
-
+    path('contacts', views.contact_page),
     path('send_service_form', views.handle_service_form),
 ]
