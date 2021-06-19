@@ -15,7 +15,7 @@
 <body>
 <header class="text-center w-100">
     <nav class="navbar navbar-expand-sm navbar-fixed-top navbar-dark bg-dark container-fluid">
-        <a class="navbar-brand" href="#">Салон красоты</a>
+        <a class="navbar-brand" href="/">Салон красоты</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -42,7 +42,6 @@
     <div class="list-group">
         {% for service in available_services %}
             <div class="card text-center p-0.5 m-2">
-                <img class="card-img-top" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title">{{ service.service_instance.name }}</h5>
                     <p class="card-text">{{ service.service_instance.price }} рублей</p>
