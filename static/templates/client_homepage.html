@@ -14,21 +14,27 @@
 
 <body>
 <header class="text-center w-100">
-    <nav class="navbar navbar-expand-md navbar-fixed-top navbar-dark bg-dark w-100">
+    <nav class="navbar navbar-expand-sm navbar-fixed-top navbar-dark bg-dark container-fluid">
         <a class="navbar-brand" href="#">Салон красоты</a>
-        <ul class="navbar-nav mr-auto flex-fill">
-            <li class="nav-item">
-                <a class="nav-link active" href="/">Услуги</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/contacts">Контакты</a>
-            </li>
-        </ul>
-        <ul class="navbar-nav">
-            <li class="nav-item float-right">
-                <a class="nav-link" href="/logout">Выйти</a>
-            </li>
-        </ul>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto flex-fill">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/">Услуги</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contacts">Контакты</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item float-right">
+                    <a class="nav-link" href="/logout">Выйти</a>
+                </li>
+            </ul>
+        </div>
     </nav>
 </header>
 <main class="m-2">
@@ -36,7 +42,7 @@
     <div class="list-group">
         {% for service in available_services %}
             <div class="card text-center p-0.5 m-2">
-                <img class="card-img-top"  alt="Card image cap">
+                <img class="card-img-top" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title">{{ service.service_instance.name }}</h5>
                     <p class="card-text">{{ service.service_instance.price }} рублей</p>
