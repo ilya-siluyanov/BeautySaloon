@@ -18,8 +18,8 @@ def handle_service_form(request: HttpRequest):
     if not request.user.is_staff:
         return HttpResponse(status=403)
     service_form = ServiceModelForm(request.POST)
-    response = HttpResponse(content='хуйня твой инпут, заново делай', status=400)
+    response = HttpResponse(content='хуйня твой инпут, заново делай', status=400)  # FIXME
     if service_form.is_valid():
         service_form.save()
-        response = HttpResponseRedirect(redirect_to='/admin')
+        response = HttpResponseRedirect(redirect_to='/')
     return response

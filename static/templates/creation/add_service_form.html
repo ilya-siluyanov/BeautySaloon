@@ -44,7 +44,7 @@
     </nav>
 </header>
 
-<form action="/admin/send_service_form" method="post" class="text-center">
+<form action="/send_service_form" method="post" class="text-center">
     {% csrf_token %}
     <div class="form-group mb-1">
         {{ service_form.name }}

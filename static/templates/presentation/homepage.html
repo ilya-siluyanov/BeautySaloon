@@ -43,7 +43,10 @@
         </div>
     </nav>
 </header>
-<main>
+<main class="text-center">
+    {% if request.user.is_staff %}
+        <a href="/add_service" class="btn btn-primary">Добавить новую услугу</a>
+    {% endif %}
     <div class="list-group">
         {% for service in available_services %}
             <div class="list-group-item card text-center p-0.5 m-2">
