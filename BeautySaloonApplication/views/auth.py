@@ -103,4 +103,4 @@ def registrator(request: HttpRequest):
                              context=context),
             status=400)
     else:
-        return HttpResponseRedirect(redirect_to='/login', status=200)
+        return HttpResponseRedirect(redirect_to='/login')
