@@ -22,4 +22,4 @@ def client_homepage(request: HttpRequest):
             dict_to_context['date'] = order.date
             dict_to_context['time'] = order.time
         context['available_services'].append(dict_to_context)
-    return HttpResponse(content=render_to_string('client_homepage.html', context=context, request=request))
+    return HttpResponse(content=render_to_string('homepage.html', context=context, request=request))

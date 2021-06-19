@@ -1,9 +1,8 @@
-from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
-from django.template.loader import render_to_string
-from rest_framework.decorators import api_view
-from BeautySaloonApplication import models, forms
-from BeautySaloonApplication.models import Order, Client, Service
 from django.contrib.auth.decorators import login_required
+from django.http import HttpRequest, HttpResponseRedirect
+from rest_framework.decorators import api_view
+
+from BeautySaloonApplication.models import Order
 
 
 @api_view(['post'])
