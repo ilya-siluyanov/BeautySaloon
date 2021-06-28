@@ -1,12 +1,20 @@
-from django.http import HttpRequest
+from typing import List
+
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.db import transaction
+from django.http import HttpResponse, HttpResponseRedirect, HttpRequest
+from django.template.loader import render_to_string
+from rest_framework.decorators import api_view
+
+from BeautySaloonApplication import forms
+from BeautySaloonApplication.forms import ServiceModelForm
+from BeautySaloonApplication.models import Order, Service, Client
 
 
 def contact_page(request: HttpRequest):
     return HttpResponse(content=render_to_string('presentation/contact_page.html'))
-
-
-from django.contrib.auth.decorators import login_required
-from django.http import HttpRequest
 
 
 @login_required(redirect_field_name=None)
@@ -26,11 +34,6 @@ def client_homepage(request: HttpRequest):
             dict_to_context['time'] = order.time
         context['available_services'].append(dict_to_context)
     return HttpResponse(content=render_to_string('presentation/homepage.html', context=context, request=request))
-
-
-from django.http import HttpRequest
-from BeautySaloonApplication.forms import ServiceModelForm
-from django.contrib.auth.decorators import login_required
 
 
 # обрабатывает запрос на получение формы для заполнения
@@ -61,10 +64,6 @@ def handle_service_form(request: HttpRequest):
     return response
 
 
-from django.http import HttpRequest
-from django.contrib.auth.decorators import login_required
-
-
 @login_required(redirect_field_name=None)
 def delete_service(request: HttpRequest, service_id: int):
     if not request.user.is_staff:
@@ -80,12 +79,6 @@ def delete_service(request: HttpRequest, service_id: int):
             order.delete()
         service.delete()
     return HttpResponseRedirect(redirect_to='/')
-
-
-from typing import List
-
-from django.http import HttpRequest
-from django.contrib.auth.decorators import login_required
 
 
 @login_required(redirect_field_name=None)
@@ -116,11 +109,6 @@ def show_orders(request: HttpRequest, service_id: int):
     return HttpResponse(content=html_page)
 
 
-from django.contrib.auth.decorators import login_required
-from django.http import HttpRequest
-from rest_framework.decorators import api_view
-
-
 @api_view(['post'])
 @login_required(redirect_field_name=None)
 def cancel_order(request: HttpRequest, service_id: int):
@@ -130,14 +118,6 @@ def cancel_order(request: HttpRequest, service_id: int):
     except Order.DoesNotExist:
         return HttpResponseRedirect(redirect_to='/', status=404)
     return HttpResponseRedirect(redirect_to='/')
-
-
-from django.contrib.auth.decorators import login_required
-from django.http import HttpRequest
-from rest_framework.decorators import api_view
-
-from BeautySaloonApplication import forms
-from BeautySaloonApplication.models import Order, Service
 
 
 @api_view(['get'])
@@ -187,11 +167,6 @@ def handle_order_form(request: HttpRequest):
     return response
 
 
-from django.contrib.auth import authenticate
-from django.http import HttpRequest
-from rest_framework.decorators import api_view
-
-
 @api_view(['POST'])
 def authorizer(request: HttpRequest):
     if request.user.is_authenticated:
@@ -221,9 +196,6 @@ def authorizer(request: HttpRequest):
     return HttpResponseRedirect(redirect_to='/')
 
 
-from django.http import HttpRequest
-
-
 def logginer(request: HttpRequest):
     if request.user.is_authenticated:
         return HttpResponseRedirect(redirect_to='/')
@@ -231,23 +203,10 @@ def logginer(request: HttpRequest):
         return HttpResponse(render_to_string('registration/login.html', request=request))
 
 
-from django.contrib.auth import logout
-from django.contrib.auth.decorators import login_required
-from django.http import HttpRequest
-
-
 @login_required(redirect_field_name=None)
 def loggouter(request: HttpRequest):
     logout(request)
     return HttpResponseRedirect(redirect_to='/')
-
-
-from django.contrib.auth import login
-from django.contrib.auth.models import User
-from django.db import transaction
-from django.http import HttpRequest
-from rest_framework.decorators import api_view
-from BeautySaloonApplication.models import Client
 
 
 @api_view(['POST'])
@@ -298,10 +257,6 @@ def registrator(request: HttpRequest):
             status=400)
     else:
         return HttpResponseRedirect(redirect_to='/login')
-
-
-from django.http import HttpResponse, HttpResponseRedirect, HttpRequest
-from django.template.loader import render_to_string
 
 
 def signuper(request: HttpRequest):
