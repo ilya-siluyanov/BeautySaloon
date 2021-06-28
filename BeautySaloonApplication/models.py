@@ -1,7 +1,16 @@
 from django.db import models
 from django.db.models import fields
-from django.utils import timezone
-from . import Client, Service
+
+
+class Client(models.Model):
+    phone_number = fields.CharField(primary_key=True, max_length=12)
+    name = fields.CharField(max_length=50)
+
+
+class Service(models.Model):
+    service_id = models.AutoField(primary_key=True)
+    name = fields.CharField(max_length=255)
+    price = fields.IntegerField(default=0)
 
 
 class Order(models.Model):

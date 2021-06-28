@@ -7,15 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-
     <!-- Custom styles for this template -->
     <link href="{% static 'css/main.css' %}" rel="stylesheet">
     <link href="{% static 'css/signin.css' %}" rel="stylesheet">
 
 </head>
 <body class="text-center">
-
-
 <main class="form-signin">
     <h1 class="h3 mb-3 fw-normal">Для продолжения работы необходимо авторизоваться</h1>
     {% if errors %}
@@ -28,7 +25,6 @@
                    name="phone_number" id="phone_number"
                    placeholder="Номер телефона"/>
             <label for="phone_number">Номер телефона</label>
-
         </div>
         <div class="form-floating">
             <input type="password" required class="form-control" name="password" id="password"
@@ -39,7 +35,6 @@
             <button type="submit" class="w-100 btn btn-primary mb-1">Войти</button>
         </div>
     </form>
-
     <a href="/signup" class="w-100 btn btn-primary">Зарегистрироваться</a>
 </main>
 

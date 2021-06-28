@@ -10,7 +10,6 @@ def client_homepage(request: HttpRequest):
     context = {
         'available_services': [],
     }
-
     for service_instance in Service.objects.all():
         orders = Order.objects.filter(client_id=request.user.username).filter(service_id=service_instance)
         dict_to_context = {

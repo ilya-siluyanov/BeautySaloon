@@ -7,22 +7,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-
     <!-- Custom styles for this template -->
     <link href="{% static 'css/main.css' %}" rel="stylesheet">
     <link href="{% static 'css/signin.css' %}" rel="stylesheet">
-
 </head>
 <body class="text-center">
-
-
 <main class="form-signin">
     <h1 class="h3 mb-3 fw-normal">Регистрация нового пользователя</h1>
     {% if errors %}
         <p class="alert alert-danger">{{ reason.description }}</p>
     {% endif %}
-
-    <form id="registration_form" method="post" action="register">
+    <form id="registration_form" method="post" action="/register">
         {% csrf_token %}
         <div class="form-floating">
             <input type="text" class="form-control" name="name" id="name" placeholder="Имя"/>
@@ -49,16 +44,8 @@
             <button type="submit" class="w-100 btn btn-primary" id="register_button">Зарегистрироваться
             </button>
         </div>
-        <input type="hidden" name="is_registration" id="is_registration" value="0">
-        <script type="text/javascript">
-            button = document.getElementById('register_button')
-            button.onclick = () => {
-                document.getElementById('is_registration').setAttribute('value', '1')
-            }
-        </script>
     </form>
 </main>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
         crossorigin="anonymous"></script>

@@ -1,8 +1,8 @@
 from django.contrib.auth import authenticate, login
 from django.http import HttpRequest, HttpResponseRedirect, HttpResponse
 from django.template.loader import render_to_string
-
-
+from rest_framework.decorators import api_view
+@api_view(['POST'])
 def authorizer(request: HttpRequest):
     if request.user.is_authenticated:
         return HttpResponseRedirect(redirect_to='/')
@@ -28,5 +28,4 @@ def authorizer(request: HttpRequest):
                                      request=request,
                                      context=context)
         return HttpResponse(content=page_html, status=401)
-
     return HttpResponseRedirect(redirect_to='/')

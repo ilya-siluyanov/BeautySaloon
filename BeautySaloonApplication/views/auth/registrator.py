@@ -3,10 +3,11 @@ from django.contrib.auth.models import User
 from django.db import transaction
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.template.loader import render_to_string
-
+from rest_framework.decorators import api_view
 from BeautySaloonApplication.models import Client
 
 
+@api_view(['POST'])
 def registrator(request: HttpRequest):
     if request.user.is_authenticated:
         return HttpResponseRedirect(redirect_to='/')
@@ -45,7 +46,6 @@ def registrator(request: HttpRequest):
             login(user=new_user, request=request)
     else:
         context['reason']['description'] = "Номер телефона уже занят"
-
     if context['reason']['description']:
         context['errors'] = True
         return HttpResponse(
