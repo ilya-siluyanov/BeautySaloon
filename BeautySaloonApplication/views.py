@@ -142,6 +142,7 @@ def send_order_form(request: HttpRequest, service_id: int):
 @api_view(['post'])
 @login_required(redirect_field_name=None)
 def handle_order_form(request: HttpRequest):
+    # свяжем Python-объект и форму из HTML
     received_order_form = OrderForm(request.POST)
     service_id = int(received_order_form.data['service_id'])
 
@@ -156,6 +157,8 @@ def handle_order_form(request: HttpRequest):
         new_order.save()
         response = HttpResponseRedirect(redirect_to='/')
     else:
+        # в случае ошибки, отправим на ту же страницу
+        # и покажем, что существует ошибка в введенных данных
         context = {
             'order_form': received_order_form,
             'errors': True,
