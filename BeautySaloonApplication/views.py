@@ -83,12 +83,12 @@ def delete_service(request: HttpRequest, service_id: int):
 
 @login_required(redirect_field_name=None)
 def show_orders(request: HttpRequest, service_id: int):
-    if not request.user.is_staff:
+    if not request.user.is_staff: # просматривать может только администратор
         return HttpResponse(status=403)
     try:
         service = Service.objects.get(service_id=service_id)
     except Service.DoesNotExist:
-        return HttpResponse(status=403)
+        return HttpResponse(status=403) # услуга обязана быть в базе данных
     context = {
         'service': {
             'name': service.name,
@@ -97,6 +97,8 @@ def show_orders(request: HttpRequest, service_id: int):
         'orders': [],
     }
     orders = list(service.orders.all())  # type: List[Order]
+    # для каждого заказа услуги
+    # укажем в контексте имя заказчика, дату и время, также его номер телефона
     for order in orders:
         client = order.client
         context['orders'].append({
@@ -105,6 +107,7 @@ def show_orders(request: HttpRequest, service_id: int):
             'client_time': order.time,
             'client_phone_number': client.phone_number
         })
+    # сформируем HTML-страницу согласно контексту и заготовленному шаблону
     html_page = render_to_string('presentation/show_orders.html', request=request, context=context)
     return HttpResponse(content=html_page)
 
