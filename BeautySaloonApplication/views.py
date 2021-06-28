@@ -8,9 +8,7 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpRequest
 from django.template.loader import render_to_string
 from rest_framework.decorators import api_view
 
-from BeautySaloonApplication import forms
-from BeautySaloonApplication.forms import ServiceModelForm
-from BeautySaloonApplication.models import Order, Service, Client
+from BeautySaloonApplication.models import Order, Service, Client, ServiceModelForm, OrderForm
 
 
 def contact_page(request: HttpRequest):
@@ -134,7 +132,7 @@ def send_order_form(request: HttpRequest, service_id: int):
         'service_id': service_id,
         'phone_number': request.user.username
     }
-    order_form = forms.OrderForm(initial=form_initial_values)
+    order_form = OrderForm(initial=form_initial_values)
     page_html = render_to_string('creation/make_order_form.html',
                                  context={'order_form': order_form},
                                  request=request)
@@ -144,7 +142,7 @@ def send_order_form(request: HttpRequest, service_id: int):
 @api_view(['post'])
 @login_required(redirect_field_name=None)
 def handle_order_form(request: HttpRequest):
-    received_order_form = forms.OrderForm(request.POST)
+    received_order_form = OrderForm(request.POST)
     service_id = int(received_order_form.data['service_id'])
 
     if received_order_form.is_valid() and len(Service.objects.filter(service_id=service_id)):

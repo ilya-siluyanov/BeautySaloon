@@ -26,9 +26,11 @@ class Order(models.Model):
 
 
 class OrderForm(forms.Form):
+    #поле, которое будет заполнено автоматически обработчиком
     phone_number = forms.CharField(widget=forms.HiddenInput(attrs={'class': 'form-control phone_number_field'}),
                                    max_length=12, min_length=12,
                                    validators=[validate_phone_number])
+    #поле, которое будет заполнено автоматически обработчиком
     service_id = forms.CharField(widget=forms.HiddenInput(),
                                  max_length=100)
     date = forms.CharField(widget=forms.DateInput(
