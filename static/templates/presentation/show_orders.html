@@ -41,12 +41,13 @@
         </div>
     </nav>
 
-</header>
+</header> <!-- Описанный ранее навигационный бар -->
 <main class="text-center">
     <h3 class="h3">{{ service.name }}</h3>
     <p class="text">Стоимость: {{ service.price }}</p>
     <div class="list-group">
         {% for order in orders %}
+
             <div class="list-group-item d-flex flex-column justify-content-between {% if forloop.counter0|divisibleby:2 %}list-group-item-primary{% endif %} }">
                 <p class="text">Имя: {{ order.client_name }}</p>
                 <p class="text">Дата: {{ order.client_date }} {{ order.client_time }}</p>
