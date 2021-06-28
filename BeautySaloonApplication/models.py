@@ -6,17 +6,26 @@ from BeautySaloonApplication.utils import validate_phone_number
 
 
 class Client(models.Model):
+    """
+    Описание таблицы клиента
+    """
     phone_number = fields.CharField(primary_key=True, max_length=12)
     name = fields.CharField(max_length=50)
 
 
 class Service(models.Model):
+    """
+    Описание таблицы услуги
+    """
     service_id = models.AutoField(primary_key=True)
     name = fields.CharField(max_length=255)
     price = fields.IntegerField(default=0)
 
 
 class Order(models.Model):
+    """
+    Описание таблицы заказа
+    """
     order_id = fields.AutoField(primary_key=True)
     client = models.ForeignKey(related_name='orders', to=Client, on_delete=models.CASCADE)
     service = models.ForeignKey(related_name='orders', to=Service, on_delete=models.CASCADE)
