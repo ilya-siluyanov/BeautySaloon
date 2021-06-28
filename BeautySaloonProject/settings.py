@@ -25,13 +25,13 @@ SECRET_KEY = 'django-insecure-&2o1oj18)6%^5mp3l7-hq@m-ipvu2)msq)zpo@jf!#!aq=$!bf
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['beautysaloonservice.herokuapp.com', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['beautysaloonservice.herokuapp.com', '127.0.0.1', 'localhost']  # допустимые хосты
 
 LOGIN_URL = '/login'
 
 # Application definition
 
-INSTALLED_APPS = [
+INSTALLED_APPS = [  # django - модули
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -55,7 +55,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'BeautySaloonProject.urls'
 
-TEMPLATES = [
+TEMPLATES = [  # пути к html-страницам
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [BASE_DIR / 'static/templates'],
@@ -76,7 +76,7 @@ WSGI_APPLICATION = 'BeautySaloonProject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
+DATABASES = {  # настройка базы данных
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
